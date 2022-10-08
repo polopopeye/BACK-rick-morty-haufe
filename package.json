@@ -38,7 +38,6 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "passport": "^0.6.0",
-    "passport-jwt": "^4.0.0",
-    "sequelize": "^6.24.0"
+    "passport-jwt": "^4.0.0"
   }
 }
