@@ -87,6 +87,12 @@ router.get('/:id', (req, res) => {
  *           format: date
  *         required: true
  *         description: Birthdate of the user
+ *       - in: body
+ *         name: password
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description:  Password of the user
  */
 router.post('/', (req, res) => {
   const userService = new UserService();
@@ -127,6 +133,12 @@ router.post('/', (req, res) => {
  *           type: string
  *           format: date
  *         description: Birthdate of the user
+ *       - in: body
+ *         name: password
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description:  Password of the user
  */
 router.put('/:id', (req, res) => {
   const id = req.params.id;
