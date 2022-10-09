@@ -1,13 +1,19 @@
+import * as bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
-const app = express();
-const port = 3001;
 
-// TODO: change app to main
+import { appModule } from './app.module';
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+async function bootstrap() {
+  const app = express();
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
+  app.use(cors());
+
+  appModule(app);
+
+  app.listen(process.env.PORT || 3001);
+}
+
+bootstrap();
