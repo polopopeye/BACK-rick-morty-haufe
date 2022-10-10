@@ -38,13 +38,17 @@ export class UserService {
 
     if (!redisData) {
       const dbData = await this.userRepository.findOne({ _id: id });
-      if (dbData) this.redisClient.update(tableName, dbData);
-      console.log('served from db');
-      return dbData;
+      if (dbData) {
+        this.redisClient.update(tableName, dbData);
+        console.log('served from db');
+        return dbData;
+      } else {
+        throw new Error('User not found');
+      }
+    } else {
+      console.log('served from redis');
+      return redisData;
     }
-
-    console.log('served from redis');
-    return redisData;
   }
 
   create(data: User) {
@@ -57,14 +61,20 @@ export class UserService {
 
   async update(id: string, changes: UpdateUser) {
     const user = await this.userRepository.findOne({ _id: id });
-    if (!user) return false;
+    if (!user) throw new Error('User not found');
     this.userRepository.updateOne({ _id: id }, changes);
     return user;
   }
 
   async remove(id: string) {
     const user = await this.userRepository.findOne({ _id: id });
-    if (!user) return false;
+    if (!user) throw new Error('User not found');
     return this.userRepository.deleteOne({ _id: id });
+  }
+
+  async login(email: string, password: string) {
+    const user = await this.userRepository.findOne({ email, password });
+    if (!user) throw new Error('User not found');
+    return user;
   }
 }

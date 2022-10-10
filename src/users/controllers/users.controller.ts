@@ -53,9 +53,14 @@ router.get('/:id', (req, res) => {
   const id = req.params.id;
 
   const userService = new UserService();
-  userService.findOne(id).then((data) => {
-    res.json({ message: 'found', data });
-  });
+  userService
+    .findOne(id)
+    .then((data) => {
+      res.json({ message: 'found', data });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 });
 
 /**
@@ -96,9 +101,14 @@ router.get('/:id', (req, res) => {
  */
 router.post('/', (req, res) => {
   const userService = new UserService();
-  userService.create(req.body).then((data) => {
-    res.json({ message: 'User Created', data });
-  });
+  userService
+    .create(req.body)
+    .then((data) => {
+      res.json({ message: 'User Created', data });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
 /**
@@ -143,9 +153,14 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   const id = req.params.id;
   const userService = new UserService();
-  userService.update(id, req.body).then((data) => {
-    res.json({ message: 'User Updated', data });
-  });
+  userService
+    .update(id, req.body)
+    .then((data) => {
+      res.json({ message: 'User Updated', data });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 });
 
 /**
@@ -167,9 +182,14 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const id = req.params.id;
   const userService = new UserService();
-  userService.remove(id).then((data) => {
-    res.json({ message: 'User Removed', data });
-  });
+  userService
+    .remove(id)
+    .then((data) => {
+      res.json({ message: 'User Removed', data });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 });
 
 export default router;
