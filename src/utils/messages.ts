@@ -1,6 +1,7 @@
 export const errors = {
   users: {
     notFound: 'User not found',
+    alreadyExists: 'User already exists',
   },
   common: {
     params: 'Invalid params',

@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import loginVerify from '../../utils/loginVerify';
+import { errors } from '../../utils/messages';
 import { PaginationUser } from '../entities/users.entities';
 import { UserService } from '../services/users.service';
 
@@ -26,7 +28,7 @@ const router = Router();
  *         required: true
  *         description: The number of items to skip before starting to collect the result set
  */
-router.get('/', (req, res) => {
+router.get('/', loginVerify, (req, res) => {
   const userService = new UserService();
   userService
     .findAll(req.query as unknown as PaginationUser)
@@ -54,14 +56,18 @@ router.get('/', (req, res) => {
  *         required: true
  *         description: The id of the user
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', loginVerify, (req, res) => {
   const id = req.params.id;
 
   const userService = new UserService();
   userService
     .findOne(id)
     .then((data) => {
-      res.json({ message: 'found', data });
+      if (data) {
+        res.json({ message: 'found', data });
+      } else {
+        res.status(404).json({ message: errors.users.notFound });
+      }
     })
     .catch((err) => {
       res.status(404).json(err);
@@ -87,7 +93,11 @@ router.post('/', (req, res) => {
   userService
     .create(req.body)
     .then((data) => {
-      res.json({ message: 'User Created', data });
+      if (data) {
+        res.json({ message: 'User created successfully', data });
+      } else {
+        res.status(404).json({ message: errors.users.alreadyExists });
+      }
     })
     .catch((err) => {
       res.status(500).json(err);
@@ -133,13 +143,17 @@ router.post('/', (req, res) => {
  *         required: true
  *         description:  Password of the user
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', loginVerify, (req, res) => {
   const id = req.params.id;
   const userService = new UserService();
   userService
     .update(id, req.body)
     .then((data) => {
-      res.json({ message: 'User Updated', data });
+      if (data) {
+        res.json({ message: 'User Updated', data });
+      } else {
+        res.status(404).json({ message: errors.users.notFound });
+      }
     })
     .catch((err) => {
       res.status(404).json(err);
@@ -162,13 +176,17 @@ router.put('/:id', (req, res) => {
  *         required: true
  *         description: The id of the user
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', loginVerify, (req, res) => {
   const id = req.params.id;
   const userService = new UserService();
   userService
     .remove(id)
     .then((data) => {
-      res.json({ message: 'User Removed', data });
+      if (data) {
+        res.json({ message: 'User Removed', data });
+      } else {
+        res.status(404).json({ message: errors.users.notFound });
+      }
     })
     .catch((err) => {
       res.status(404).json(err);

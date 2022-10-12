@@ -43,4 +43,27 @@ export interface PaginationUser {
   offset: number;
 }
 
+/**
+ * @openapi
+ * components:
+ *    schemas:
+ *     Login:
+ *      type: object
+ *      properties:
+ *       email:
+ *        type: string
+ *        format: email
+ *        description: Email of the user
+ *        example: test@test.com
+ *       password:
+ *        type: string
+ *        format: password
+ *        description: Password of the user
+ *        example: 123456
+ */
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
 // TODO: add joi validations

@@ -2,7 +2,12 @@ import db from '../../database/database.module';
 import { RedisProvider } from '../../redis/redis.provider';
 import { errors, info } from '../../utils/messages';
 import UserModel from '../dtos/users.dtos';
-import { PaginationUser, UpdateUser, User } from '../entities/users.entities';
+import {
+  LoginUser,
+  PaginationUser,
+  UpdateUser,
+  User,
+} from '../entities/users.entities';
 
 export class UserService {
   constructor(
@@ -48,7 +53,7 @@ export class UserService {
         console.log(info.database.served);
         return dbData;
       } else {
-        throw new Error(errors.users.notFound);
+        return false;
       }
     } else {
       console.log(info.redis.served);
@@ -56,10 +61,13 @@ export class UserService {
     }
   }
 
-  create(data: User) {
+  async create(data: User) {
     const user = new UserModel({
       ...data,
     });
+
+    const findUser = await this.userRepository.findOne({ email: data.email });
+    if (findUser) return false;
 
     const newUser = this.userRepository.create(user);
     const tableName = this.userRepository.collection.collectionName;
@@ -70,20 +78,26 @@ export class UserService {
 
   async update(id: string, changes: UpdateUser) {
     const user = await this.userRepository.findOne({ _id: id });
-    if (!user) throw new Error(errors.users.notFound);
+    if (!user) return false;
     this.userRepository.updateOne({ _id: id }, changes);
     return user;
   }
 
   async remove(id: string) {
     const user = await this.userRepository.findOne({ _id: id });
-    if (!user) throw new Error(errors.users.notFound);
+    if (!user) return false;
     return this.userRepository.deleteOne({ _id: id });
   }
 
-  async login(email: string, password: string) {
+  async login({ email, password }: LoginUser) {
     const user = await this.userRepository.findOne({ email, password });
-    if (!user) throw new Error(errors.users.notFound);
+    if (!user) return false;
+    return user;
+  }
+
+  async checkEmail(email: string) {
+    const user = await this.userRepository.findOne({ email });
+    if (!user) return false;
     return user;
   }
 }

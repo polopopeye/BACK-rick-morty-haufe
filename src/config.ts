@@ -11,6 +11,9 @@ interface Config {
     url: string;
     cacheTimeOut: string;
   };
+  jwt: {
+    secret: string;
+  };
 }
 
 const configData: Config = {
@@ -21,6 +24,9 @@ const configData: Config = {
     url: process.env.REDIS_URL,
     cacheTimeOut: process.env.REDIS_CACHE_TIMEOUT || '30', // cache in seconds
   },
+  jwt: {
+    secret: process.env.JWT_SECRET || 'secret',
+  },
 };
 console.log(`fastlog => configData`, configData);
 
@@ -28,6 +34,19 @@ const configSchema = Joi.object().keys({
   db: Joi.object()
     .keys({
       url: Joi.string().required(),
+    })
+    .required(),
+
+  redis: Joi.object()
+    .keys({
+      url: Joi.string().required(),
+      cacheTimeOut: Joi.string().required(),
+    })
+    .required(),
+
+  jwt: Joi.object()
+    .keys({
+      secret: Joi.string().required(),
     })
     .required(),
 });
