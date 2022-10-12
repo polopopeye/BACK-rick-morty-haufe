@@ -3,6 +3,10 @@ export const errors = {
     notFound: 'User not found',
     alreadyExists: 'User already exists',
   },
+  favourite: {
+    notFound: 'Favourite not found',
+    alreadyExists: 'Favourite already exists',
+  },
   common: {
     params: 'Invalid params',
   },

@@ -3,6 +3,7 @@ import { Router } from 'express-serve-static-core';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi, { SwaggerOptions } from 'swagger-ui-express';
 import appController from './app.controller';
+import { favouriteModule } from './favourites/favourite.module';
 import { userModule } from './users/users.module';
 
 const swaggerOptions = {
@@ -35,6 +36,7 @@ export const appModule = (app: {
   // TODO: import modules here
 
   userModule(app);
+  favouriteModule(app);
 
   app.use('/', appController);
 };
