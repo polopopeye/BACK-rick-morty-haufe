@@ -28,9 +28,14 @@ const router = Router();
  */
 router.get('/', (req, res) => {
   const userService = new UserService();
-  userService.findAll(req.query as unknown as PaginationUser).then((data) => {
-    res.json({ message: 'found', data });
-  });
+  userService
+    .findAll(req.query as unknown as PaginationUser)
+    .then((data) => {
+      res.json({ message: 'found', data });
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
 });
 
 /**
@@ -71,33 +76,11 @@ router.get('/:id', (req, res) => {
  *     responses:
  *       200:
  *         description: User created successfully
- *     parameters:
- *       - in: body
- *         name: name
- *         schema:
- *           type: string
- *         required: true
- *         description: Name of the user
- *       - in: body
- *         name: email
- *         schema:
- *           type: string
- *           format: email
- *         required: true
- *         description: Email of the user
- *       - in: body
- *         name: birthDate
- *         schema:
- *           type: string
- *           format: date
- *         required: true
- *         description: Birthdate of the user
- *       - in: body
- *         name: password
- *         schema:
- *           type: string
- *         required: true
- *         description:  Password of the user
+ *     requestBody:
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/components/schemas/User'
  */
 router.post('/', (req, res) => {
   const userService = new UserService();

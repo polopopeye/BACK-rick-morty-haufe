@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
 import { config } from '../config';
+import { info } from '../utils/messages';
 
 export class RedisProvider {
   private readonly redisClient = createClient({
@@ -11,7 +12,7 @@ export class RedisProvider {
     this.redisClient.on('error', (err) =>
       console.log('Redis Client Error', err)
     );
-    this.redisClient.on('connect', () => console.log('Redis Client Connected'));
+    // this.redisClient.on('connect', () => console.log(info.redis.connected));
   }
 
   async get(key: string) {

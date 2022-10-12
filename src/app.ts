@@ -4,9 +4,9 @@ import express from 'express';
 
 import { appModule } from './app.module';
 
-async function bootstrap() {
-  const app = express();
+const app = express();
 
+async function bootstrap(app: express.Application) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(cors());
@@ -16,4 +16,4 @@ async function bootstrap() {
   app.listen(process.env.PORT || 3001);
 }
 
-bootstrap();
+bootstrap(app);

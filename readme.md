@@ -38,3 +38,6 @@ vs code addon to hide unnesesary files and folders (in this case: .vscode, node_
 
 Prettier:
 Prettier is a code formatter. (only using the vs code addon)
+
+supertest
+Supertest is used to mock out our express server so we do not have to run a http server in order to test our routes.
