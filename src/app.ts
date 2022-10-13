@@ -12,12 +12,7 @@ async function bootstrap(app: express.Application) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
-  const corsConfig = {
-    credentials: true,
-    origin: true,
-  };
-
-  app.use(cors(corsConfig));
+  app.use(cors());
 
   app.use(cookieParser());
 
