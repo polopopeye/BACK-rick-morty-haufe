@@ -7,7 +7,7 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch --coverage",
     "build": "npx tsc",
-    "start": "tsc && node dist/app.js",
+    "start": "node dist/app.js",
     "dev": "nodemon --watch ./src -e ts --exec \"npm run start\"",
     "lint": "npx eslint . --ext .ts"
   },
