@@ -12,7 +12,16 @@ async function bootstrap(app: express.Application) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
-  app.use(cors());
+  const corsConfig = {
+    credentials: true,
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'https://front-haufe-rick.herokuapp.com/',
+    ],
+  };
+
+  app.use(cors(corsConfig));
 
   app.use(cookieParser());
 
