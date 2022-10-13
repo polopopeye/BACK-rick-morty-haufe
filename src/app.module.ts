@@ -4,6 +4,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi, { SwaggerOptions } from 'swagger-ui-express';
 import appController from './app.controller';
 import { favouriteModule } from './favourites/favourite.module';
+import { characterModule } from './rickAndMorty/character.module';
 import { userModule } from './users/users.module';
 
 const swaggerOptions = {
@@ -33,10 +34,10 @@ export const appModule = (app: {
   );
   // Swagger Docs
 
-  // TODO: import modules here
-
+  // modules
   userModule(app);
   favouriteModule(app);
+  characterModule(app);
 
   app.use('/', appController);
 };

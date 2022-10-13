@@ -81,13 +81,8 @@ describe('int of => /users', () => {
       .set('Cookie', `token=${token}`);
 
     expect(res.statusCode).toBe(200);
-    expect(res.body.data).toHaveProperty('_id');
-    expect(res.body.data).toHaveProperty('name');
-    expect(res.body.data).toHaveProperty('email');
-    expect(res.body.data).toHaveProperty('password');
-    expect(res.body.data).toHaveProperty('birthDate');
-    expect(res.body.data).toHaveProperty('createdAt');
-    expect(res.body.data).toHaveProperty('updatedAt');
+    expect(res.body.data).toHaveProperty('modifiedCount');
+    expect(res.body.data).toHaveProperty('matchedCount');
   });
 
   it('check deletion of created user', async () => {

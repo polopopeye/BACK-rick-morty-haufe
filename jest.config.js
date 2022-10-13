@@ -5,4 +5,5 @@ module.exports = {
     '^.+\\.ts?$': 'ts-jest',
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  testMatch: ['**/?(*.)+(spec|test).ts'],
 };

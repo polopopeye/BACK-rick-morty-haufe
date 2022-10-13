@@ -7,19 +7,22 @@ const router = Router();
 
 /**
  * @openapi
- * /favourite/
- *   post:
+ * /favourite/:
+ *    post:
  *     description: find one favourite
  *     responses:
  *       200:
- *         description: list all users
- *     parameters:
- *       - in: params
- *         name: id
- *         schema:
+ *         description: find one favourite
+ *     requestBody:
+ *      content:
+ *       application/json:
+ *        schema:
+ *         type: object
+ *         properties:
+ *          userId:
  *           type: string
- *         required: true
- *         description: The id of the user
+ *          characterId:
+ *           type: string
  */
 router.post('/', loginVerify, (req, res) => {
   const { userId, characterId } = req.body;
@@ -46,12 +49,12 @@ router.post('/', loginVerify, (req, res) => {
  *     description: Create a new favourite
  *     responses:
  *       200:
- *         description: User created successfully
+ *         description: Favourite created successfully
  *     requestBody:
  *      content:
  *       application/json:
  *        schema:
- *         $ref: '#/components/schemas/User'
+ *         $ref: '#/components/schemas/Favourite'
  */
 router.post('/create', (req, res) => {
   const favouriteService = new FavouriteService();
@@ -71,42 +74,17 @@ router.post('/create', (req, res) => {
 
 /**
  * @openapi
- * /favourite/:id:
+ * /favourite/modify:
  *    put:
- *     description: create a new user endpoint
+ *     description: modify a favourite
  *     responses:
  *       200:
- *         description: User created successfully
- *     parameters:
- *       - in: params
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The id of the user
- *       - in: body
- *         name: name
- *         schema:
- *           type: string
- *         description: Name of the user
- *       - in: body
- *         name: email
- *         schema:
- *           type: string
- *           format: email
- *         description: Email of the user
- *       - in: body
- *         name: birthDate
- *         schema:
- *           type: string
- *           format: date
- *         description: Birthdate of the user
- *       - in: body
- *         name: password
- *         schema:
- *           type: string
- *         required: true
- *         description:  Password of the user
+ *         description: favourite modified successfully
+ *     requestBody:
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/components/schemas/Favourite'
  */
 router.put('/modify', loginVerify, (req, res) => {
   const { userId, characterId } = req.body;

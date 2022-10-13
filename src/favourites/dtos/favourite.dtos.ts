@@ -4,7 +4,7 @@ import { Favourite } from '../entities/favourite.entities';
 const collection = 'favourites';
 
 const FavouriteModel = mongoose.model<Favourite>(
-  'User',
+  'Favorite',
   new Schema({
     userId: { type: String, required: true },
     characterId: { type: String, required: true },

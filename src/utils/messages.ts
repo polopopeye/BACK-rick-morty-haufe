@@ -9,6 +9,7 @@ export const errors = {
   },
   common: {
     params: 'Invalid params',
+    notFound: 'Not found',
   },
 };
 

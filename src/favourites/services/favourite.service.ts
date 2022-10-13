@@ -13,7 +13,8 @@ export class FavouriteService {
   }
 
   async findOne(userId: string, characterId: string) {
-    const tableName = this.favouriteRepository.collection.collectionName + id;
+    const tableName =
+      this.favouriteRepository.collection.collectionName + userId + characterId;
     const redisData = await this.redisClient.get(tableName);
 
     if (!redisData) {
@@ -35,6 +36,7 @@ export class FavouriteService {
   }
 
   async create(data: Favourite) {
+    console.log(`fastlog => data`, data);
     const favourite = new FavouriteModel({
       ...data,
     });
@@ -45,13 +47,14 @@ export class FavouriteService {
       userId,
       characterId,
     });
+    console.log(`fastlog => findFavourite`, findFavourite);
     if (findFavourite) return false;
 
-    const newUser = this.favouriteRepository.create(favourite);
+    const newFavourite = this.favouriteRepository.create(favourite);
     const tableName = this.favouriteRepository.collection.collectionName;
     this.redisClient.delete(tableName);
 
-    return newUser;
+    return newFavourite;
   }
 
   async update(userId: string, characterId: string, data: UpdateFavourite) {
@@ -60,8 +63,11 @@ export class FavouriteService {
       characterId,
     });
     if (!favourite) return false;
-    this.favouriteRepository.updateOne({ userId, characterId }, data);
-    return favourite;
+    const updatedFav = await this.favouriteRepository.updateOne(
+      { userId, characterId },
+      data
+    );
+    return updatedFav;
   }
 
   async remove(userId: string, characterId: string) {

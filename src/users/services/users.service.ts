@@ -79,8 +79,11 @@ export class UserService {
   async update(id: string, changes: UpdateUser) {
     const user = await this.userRepository.findOne({ _id: id });
     if (!user) return false;
-    this.userRepository.updateOne({ _id: id }, changes);
-    return user;
+    const updatedUser = await this.userRepository.updateOne(
+      { _id: id },
+      changes
+    );
+    return updatedUser;
   }
 
   async remove(id: string) {
