@@ -18,9 +18,9 @@ export class UserService {
   }
 
   async findAll(params: PaginationUser) {
-    if (!params.limit || !params.offset) {
-      throw new Error(errors.common.params);
-    }
+    // if (!params.limit || !params.offset) {
+    //   throw new Error(errors.common.params);
+    // }
 
     const { limit, offset } = params;
     const tableName = this.userRepository.collection.collectionName;

@@ -10,6 +10,7 @@ interface Config {
   redis: {
     url: string;
     cacheTimeOut: string;
+    enabled: boolean;
   };
   jwt: {
     secret: string;
@@ -23,6 +24,7 @@ const configData: Config = {
   redis: {
     url: process.env.REDIS_URL,
     cacheTimeOut: process.env.REDIS_CACHE_TIMEOUT || '30', // cache in seconds
+    enabled: process.env.REDIS_ENABLED === 'true',
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'secret',
@@ -41,6 +43,7 @@ const configSchema = Joi.object().keys({
     .keys({
       url: Joi.string().required(),
       cacheTimeOut: Joi.string().required(),
+      enabled: Joi.boolean().required(),
     })
     .required(),
 

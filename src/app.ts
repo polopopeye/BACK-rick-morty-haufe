@@ -10,7 +10,13 @@ const app = express();
 async function bootstrap(app: express.Application) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  app.use(cors());
+
+  const corsConfig = {
+    credentials: true,
+    origin: true,
+  };
+  app.use(cors(corsConfig));
+
   app.use(cookieParser());
 
   appModule(app);
