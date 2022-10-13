@@ -64,3 +64,6 @@ from SWAGGER UI: (similar with other tools like insomnia or postman)
 2. Create a user
 3. Login (to set the "token" cookie, or get the JWT token to put it in insomnia or postman)
 4. (new cookie created in the browser) now you can test the other endpoints
+
+TODO:
+Deploy in server
