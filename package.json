@@ -8,7 +8,7 @@
     "test:watch": "jest --watch --coverage",
     "build": "npx tsc",
     "start": "node dist/app.js",
-    "dev": "nodemon --watch ./src -e ts --exec \"npm run start\"",
+    "dev": "nodemon --watch ./src -e ts --exec \"npx tsc && node dist/app.js\"",
     "lint": "npx eslint . --ext .ts"
   },
   "repository": {
@@ -26,6 +26,7 @@
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.1",
+    "@types/express-session": "^1.17.5",
     "@types/jest": "^29.1.2",
     "@types/supertest": "^2.0.12",
     "@types/swagger-jsdoc": "^6.0.1",
@@ -46,6 +47,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
+    "express-session": "^1.17.3",
     "i": "^0.3.7",
     "joi": "^17.6.2",
     "jsonwebtoken": "^8.5.1",

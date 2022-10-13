@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 import { appModule } from './app.module';
 
@@ -15,6 +16,7 @@ async function bootstrap(app: express.Application) {
     credentials: true,
     origin: true,
   };
+
   app.use(cors(corsConfig));
 
   app.use(cookieParser());

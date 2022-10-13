@@ -48,6 +48,7 @@ function bootstrap(app) {
         const corsConfig = {
             credentials: true,
             origin: true,
+            sameSite: 'none',
         };
         app.use((0, cors_1.default)(corsConfig));
         app.use((0, cookie_parser_1.default)());
