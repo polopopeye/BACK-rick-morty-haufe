@@ -1,6 +1,5 @@
 import { createClient } from 'redis';
 import { config } from '../config';
-import { info } from '../utils/messages';
 
 export class RedisProvider {
   private readonly redisClient = createClient({
