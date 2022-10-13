@@ -13,12 +13,13 @@ async function bootstrap(app: express.Application) {
   app.use(bodyParser.json());
 
   const corsConfig = {
-    credentials: true,
-    origin: [
-      'http://localhost:3000',
-      'http://localhost:3001',
-      'https://front-haufe-rick.herokuapp.com/',
-    ],
+    // credentials: true,
+    // origin: [
+    //   'http://localhost:3000',
+    //   'http://localhost:3001',
+    //   'https://front-haufe-rick.herokuapp.com',
+    // ],
+    origin: '*',
   };
 
   app.use(cors(corsConfig));
