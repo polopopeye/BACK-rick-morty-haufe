@@ -31,7 +31,7 @@ router.post('/login', (req, res) => {
 
       if (data) {
         const jwToken = jwt.sign(
-          { id: data._id, email: req.body.email },
+          { email: req.body.email },
           config.value.jwt.secret
         );
         res.cookie('token', jwToken, { sameSite: 'none', secure: true });
