@@ -14,10 +14,12 @@ const loginVerify = async (req: Request, res: Response, next: () => void) => {
     return;
   }
   const token = req.cookies.token;
+  console.log(`fastlog => token`, token);
 
   const decoded = jwt.verify(token, config.value.jwt.secret);
 
   if (decoded) {
+    console.log(`fastlog => decoded`, decoded);
     const { id, email } = decoded;
     const userService = new UserService();
     const user = (await userService.findOne(id)) as unknown as User;

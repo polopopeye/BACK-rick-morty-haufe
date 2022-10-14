@@ -24,8 +24,10 @@ const loginVerify = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         return;
     }
     const token = req.cookies.token;
+    console.log(`fastlog => token`, token);
     const decoded = jsonwebtoken_1.default.verify(token, config_1.config.value.jwt.secret);
     if (decoded) {
+        console.log(`fastlog => decoded`, decoded);
         const { id, email } = decoded;
         const userService = new users_service_1.UserService();
         const user = (yield userService.findOne(id));

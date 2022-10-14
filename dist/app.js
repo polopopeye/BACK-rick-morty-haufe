@@ -47,8 +47,13 @@ function bootstrap(app) {
         app.use(bodyParser.json());
         const corsConfig = {
             credentials: true,
-            origin: true,
-            sameSite: 'none',
+            origin: [
+                'http://localhost:3000',
+                'http://localhost:3001',
+                'https://front-haufe-rick.herokuapp.com',
+                'https://hafue-backend-rick.herokuapp.com',
+            ],
+            // origin: '*',
         };
         app.use((0, cors_1.default)(corsConfig));
         app.use((0, cookie_parser_1.default)());
