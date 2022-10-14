@@ -44,6 +44,41 @@ router.post('/', loginVerify, (req, res) => {
 
 /**
  * @openapi
+ * /favourite/user:
+ *    get:
+ *     description: find users favourites
+ *     responses:
+ *       200:
+ *         description: find users favourites
+ *     requestBody:
+ *      content:
+ *       application/json:
+ *        schema:
+ *         type: object
+ *         properties:
+ *          userId:
+ *           type: string
+ */
+router.post('/user', loginVerify, (req, res) => {
+  const { userId } = req.body;
+
+  const favouriteService = new FavouriteService();
+  favouriteService
+    .findUsersFav(userId)
+    .then((data) => {
+      if (data) {
+        res.json({ message: 'found', data });
+      } else {
+        res.status(404).json({ message: errors.favourite.notFound });
+      }
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
+});
+
+/**
+ * @openapi
  * /favourite/create:
  *    post:
  *     description: Create a new favourite

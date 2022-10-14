@@ -35,6 +35,26 @@ export class FavouriteService {
     }
   }
 
+  async findUsersFav(userId: string) {
+    const tableName =
+      this.favouriteRepository.collection.collectionName + userId;
+    const redisData = await this.redisClient.get(tableName);
+
+    if (!redisData) {
+      const dbData = await this.favouriteRepository.find({ userId });
+      if (dbData) {
+        this.redisClient.update(tableName, dbData);
+        console.log(info.database.served);
+        return dbData;
+      } else {
+        return false;
+      }
+    } else {
+      console.log(info.redis.served);
+      return redisData;
+    }
+  }
+
   async create(data: Favourite) {
     console.log(`fastlog => data`, data);
     const favourite = new FavouriteModel({

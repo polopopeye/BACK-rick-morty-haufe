@@ -47,6 +47,27 @@ class FavouriteService {
             }
         });
     }
+    findUsersFav(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tableName = this.favouriteRepository.collection.collectionName + userId;
+            const redisData = yield this.redisClient.get(tableName);
+            if (!redisData) {
+                const dbData = yield this.favouriteRepository.find({ userId });
+                if (dbData) {
+                    this.redisClient.update(tableName, dbData);
+                    console.log(messages_1.info.database.served);
+                    return dbData;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                console.log(messages_1.info.redis.served);
+                return redisData;
+            }
+        });
+    }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(`fastlog => data`, data);

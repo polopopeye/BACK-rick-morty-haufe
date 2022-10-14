@@ -46,6 +46,40 @@ router.post('/', loginVerify_1.default, (req, res) => {
 });
 /**
  * @openapi
+ * /favourite/user:
+ *    get:
+ *     description: find users favourites
+ *     responses:
+ *       200:
+ *         description: find users favourites
+ *     requestBody:
+ *      content:
+ *       application/json:
+ *        schema:
+ *         type: object
+ *         properties:
+ *          userId:
+ *           type: string
+ */
+router.post('/user', loginVerify_1.default, (req, res) => {
+    const { userId } = req.body;
+    const favouriteService = new favourite_service_1.FavouriteService();
+    favouriteService
+        .findUsersFav(userId)
+        .then((data) => {
+        if (data) {
+            res.json({ message: 'found', data });
+        }
+        else {
+            res.status(404).json({ message: messages_1.errors.favourite.notFound });
+        }
+    })
+        .catch((err) => {
+        res.status(404).json(err);
+    });
+});
+/**
+ * @openapi
  * /favourite/create:
  *    post:
  *     description: Create a new favourite
@@ -107,19 +141,17 @@ router.put('/modify', loginVerify_1.default, (req, res) => {
 });
 /**
  * @openapi
- * /favourite/:id:
+ * /favourite/delete:
  *   delete:
  *     description: get all users
  *     responses:
  *       200:
  *         description: list all users
- *     parameters:
- *       - in: params
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The id of the user
+ *     requestBody:
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/components/schemas/Favourite'
  */
 router.delete('/delete', loginVerify_1.default, (req, res) => {
     const { userId, characterId } = req.body;
