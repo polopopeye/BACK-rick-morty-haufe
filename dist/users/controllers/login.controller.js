@@ -30,7 +30,7 @@ router.post('/login', (req, res) => {
         .then((data) => {
         console.log(`fastlog => data`, data);
         if (data) {
-            const jwToken = jsonwebtoken_1.default.sign({ id: data._id, email: req.body.email }, config_1.config.value.jwt.secret);
+            const jwToken = jsonwebtoken_1.default.sign({ email: req.body.email }, config_1.config.value.jwt.secret);
             res.cookie('token', jwToken, { sameSite: 'none', secure: true });
             res.json({ message: 'Connected!', token: jwToken });
         }

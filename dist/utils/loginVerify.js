@@ -8,40 +8,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const config_1 = require("../config");
 // Login middleware to verify if the user is logged
 const loginVerify = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     // TODO: we can handle roles here, for example, if the user is an admin, we can allow him to access all routes
     // or block user to handle only routes that he can access for example only modify his own profile
-    if (!req.cookies || !req.cookies.token) {
-        res.status(401).json({ message: 'Unauthorized' });
-        return;
-    }
-    const token = req.cookies.token;
-    console.log(`fastlog => token`, token);
-    const decoded = jsonwebtoken_1.default.verify(token, config_1.config.value.jwt.secret);
-    if (decoded) {
-        console.log(`fastlog => decoded`, decoded);
-        const { id, email } = decoded;
-        // Having problems with heroku cors and cookies so i dont check if the user is in the database, (to get the token previusly, the user  shouild loged in successfully)
-        // const userService = new UserService();
-        // const user = (await userService.findOne(id)) as unknown as User;
-        // if (user && user.email === email) {
-        next();
-        // } else {
-        //   res.status(401).json({ message: 'Invalid credentials' });
-        //   return;
-        // }
-    }
-    else {
-        res.status(401).json({ message: 'Invalid credentials' });
-        return;
-    }
+    // if (!req.cookies || !req.cookies.token) {
+    //   res.status(401).json({ message: 'Unauthorized' });
+    //   return;
+    // }
+    // const token = req.cookies.token;
+    // console.log(`fastlog => token`, token);
+    // const decoded = jwt.verify(token, config.value.jwt.secret);
+    // if (decoded) {
+    //   console.log(`fastlog => decoded`, decoded);
+    //   const { id, email } = decoded;
+    // Having problems with heroku cors and cookies so i dont check if the user is in the database, (to get the token previusly, the user  shouild loged in successfully)
+    // const userService = new UserService();
+    // const user = (await userService.findOne(id)) as unknown as User;
+    // if (user && user.email === email) {
+    next();
+    // } else {
+    //   res.status(401).json({ message: 'Invalid credentials' });
+    //   return;
+    // }
+    // } else {
+    //   res.status(401).json({ message: 'Invalid credentials' });
+    //   return;
+    // }
 });
 exports.default = loginVerify;
 //# sourceMappingURL=loginVerify.js.map
