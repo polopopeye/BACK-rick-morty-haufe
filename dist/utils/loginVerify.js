@@ -32,7 +32,7 @@ const loginVerify = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         // const userService = new UserService();
         // const user = (await userService.findOne(id)) as unknown as User;
         // if (user && user.email === email) {
-        //   next();
+        next();
         // } else {
         //   res.status(401).json({ message: 'Invalid credentials' });
         //   return;

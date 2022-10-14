@@ -27,7 +27,7 @@ const loginVerify = async (req: Request, res: Response, next: () => void) => {
     // const user = (await userService.findOne(id)) as unknown as User;
 
     // if (user && user.email === email) {
-    //   next();
+    next();
     // } else {
     //   res.status(401).json({ message: 'Invalid credentials' });
     //   return;
