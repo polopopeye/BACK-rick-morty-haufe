@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../config");
-const users_service_1 = require("../users/services/users.service");
 // Login middleware to verify if the user is logged
 const loginVerify = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     // TODO: we can handle roles here, for example, if the user is an admin, we can allow him to access all routes
@@ -29,15 +28,15 @@ const loginVerify = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     if (decoded) {
         console.log(`fastlog => decoded`, decoded);
         const { id, email } = decoded;
-        const userService = new users_service_1.UserService();
-        const user = (yield userService.findOne(id));
-        if (user && user.email === email) {
-            next();
-        }
-        else {
-            res.status(401).json({ message: 'Invalid credentials' });
-            return;
-        }
+        // Having problems with heroku cors and cookies so i dont check if the user is in the database, (to get the token previusly, the user  shouild loged in successfully)
+        // const userService = new UserService();
+        // const user = (await userService.findOne(id)) as unknown as User;
+        // if (user && user.email === email) {
+        //   next();
+        // } else {
+        //   res.status(401).json({ message: 'Invalid credentials' });
+        //   return;
+        // }
     }
     else {
         res.status(401).json({ message: 'Invalid credentials' });
