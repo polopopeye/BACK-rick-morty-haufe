@@ -21,15 +21,17 @@ const loginVerify = async (req: Request, res: Response, next: () => void) => {
   if (decoded) {
     console.log(`fastlog => decoded`, decoded);
     const { id, email } = decoded;
-    const userService = new UserService();
-    const user = (await userService.findOne(id)) as unknown as User;
 
-    if (user && user.email === email) {
-      next();
-    } else {
-      res.status(401).json({ message: 'Invalid credentials' });
-      return;
-    }
+    // Having problems with heroku cors and cookies so i dont check if the user is in the database, (to get the token previusly, the user  shouild loged in successfully)
+    // const userService = new UserService();
+    // const user = (await userService.findOne(id)) as unknown as User;
+
+    // if (user && user.email === email) {
+    //   next();
+    // } else {
+    //   res.status(401).json({ message: 'Invalid credentials' });
+    //   return;
+    // }
   } else {
     res.status(401).json({ message: 'Invalid credentials' });
     return;

@@ -34,7 +34,7 @@ router.post('/login', (req, res) => {
           { id: data._id, email: req.body.email },
           config.value.jwt.secret
         );
-        res.cookie('token', jwToken);
+        res.cookie('token', jwToken, { sameSite: 'none', secure: true });
         res.json({ message: 'Connected!', token: jwToken });
       } else {
         res.status(401).json({ message: 'Invalid credentials' });
