@@ -106,19 +106,17 @@ router.put('/modify', loginVerify, (req, res) => {
 
 /**
  * @openapi
- * /favourite/:id:
+ * /favourite/delete:
  *   delete:
  *     description: get all users
  *     responses:
  *       200:
  *         description: list all users
- *     parameters:
- *       - in: params
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The id of the user
+ *     requestBody:
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/components/schemas/Favourite'
  */
 router.delete('/delete', loginVerify, (req, res) => {
   const { userId, characterId } = req.body;
